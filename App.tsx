@@ -6,13 +6,18 @@ import styled from '@emotion/native'
 
 export default function App() {
   return (
- 
     <SafeAreaProvider>
       {/* <StView> */}
+
     <Navigation />
       {/* </StView> */}
+      
     </SafeAreaProvider>
+    
    
   );
+
+  
+
 }
 
