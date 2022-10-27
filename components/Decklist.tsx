@@ -1,10 +1,16 @@
 import React, { FC, useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import AddSvgIcon from '../assets/SvgImages/AddSvgIcon';
+import AddIcon from '../assets/addIcon.png'
 
+type deckType={
+  id:string,
+  title:string
+}
 
-const Decklist:FC = () => {
+const Decklist:FC<{navigation:any}> = ({navigation}) => {
 
-    const [deckList , setDeckList] = useState([])
+    const [deckList , setDeckList] = useState<deckType[]>([])
 
     // initial call of decklist
     useEffect(()=>{
@@ -12,9 +18,12 @@ const Decklist:FC = () => {
             const data = await fetch('https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck.json');
             const resData = await data.json();
             console.log(resData);
-            const temp = [];
+            const temp:deckType[]= [];
             for (let i in resData){
-              temp.push(resData[i].deck_name)
+              temp.push({
+                id: i,
+               title: resData[i].deck_name
+              })
             }
             setDeckList(temp)
             console.log('temp' , temp)
@@ -30,11 +39,21 @@ const Decklist:FC = () => {
 
   return (
     <View>
-     {deckList && deckList.map((i)=>{
+     {deckList && deckList.map((item)=>{
         return (
-            <View style={style.bottomLine}>
-            <Text>{i}</Text>
+          <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('countDown')}>
+            <View style={style.itemWrapper}>
+            <Text>{item.title}</Text>
+            <View style={{flexDirection:'row'}}>
+            <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('addCard',{deckId:item.id})}>
+            <Image  style={{height:'30px',width:'30px'}} source={require('../assets/addIcon.png')} />
+            </TouchableOpacity> 
+            <Image  style={{height:'30px',width:'30px'}} source={require('../assets/settings.png')} />
             </View>
+            </View>
+            <View  style={style.bottomLine} />
+            </TouchableOpacity> 
+            
         )
      })}
     </View>
@@ -45,7 +64,13 @@ const style = StyleSheet.create({
   bottomLine:{
     borderBottomWidth:3,
     width:'300px',
-    padding:5
+    padding:5,
+  },
+  itemWrapper:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    textAlign:'left',
+
   }
 })
 
