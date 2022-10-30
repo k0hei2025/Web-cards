@@ -34,7 +34,7 @@ const AddCard:FC = () => {
         console.log(data , 'data of add card form');
         // add card to specific deck 
 
-        const response  = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${deckId}.json`,{
+        const response  = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${deckId}/cardList.json`,{
             method:'POST',
             body:JSON.stringify(data),
             headers:{

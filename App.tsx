@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Navigation from './navigations/index';
+import Navigation from './src/navigations/index';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import styled from '@emotion/native'
+import { RecoilRoot } from 'recoil';
 
 export default function App() {
   return (
+    <RecoilRoot>
     <SafeAreaProvider>
       {/* <StView> */}
 
@@ -13,7 +12,7 @@ export default function App() {
       {/* </StView> */}
       
     </SafeAreaProvider>
-    
+    </RecoilRoot>
    
   );
 

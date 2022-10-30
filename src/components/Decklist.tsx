@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import AddSvgIcon from '../assets/SvgImages/AddSvgIcon';
-import AddIcon from '../assets/addIcon.png'
+import { useSetRecoilState } from 'recoil'
+import { deckInfoState } from '../store/deckInfoState'
 
 type deckType={
   id:string,
@@ -11,6 +11,9 @@ type deckType={
 const Decklist:FC<{navigation:any}> = ({navigation}) => {
 
     const [deckList , setDeckList] = useState<deckType[]>([])
+
+    const setDeckToken = useSetRecoilState(deckInfoState);
+  
 
     // initial call of decklist
     useEffect(()=>{
@@ -30,30 +33,32 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
             // return resData
         }
        const res =  getDeckList()
-   
-    //    console.log(temp , 'temp')
-        // console.log(getDeckList() , 'deckllIst')
+
         deckList && console.log(deckList , 'data of decklist');
     },[]);
 
+    const pushDeckHandler=(selectedDeck:string | unknown)=>{
+      navigation.navigate('countDown')
+      setDeckToken(selectedDeck)
+      console.log(selectedDeck , 'deckId')
+    }
 
   return (
     <View>
      {deckList && deckList.map((item)=>{
         return (
-          <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('countDown')}>
+          <TouchableOpacity key={item.id} onPress={()=>pushDeckHandler(item)}>
             <View style={style.itemWrapper}>
             <Text>{item.title}</Text>
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('addCard',{deckId:item.id})}>
-            <Image  style={{height:'30px',width:'30px'}} source={require('../assets/addIcon.png')} />
+            <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/addIcon.png')} />
             </TouchableOpacity> 
-            <Image  style={{height:'30px',width:'30px'}} source={require('../assets/settings.png')} />
+            <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/settings.png')} />
             </View>
             </View>
             <View  style={style.bottomLine} />
-            </TouchableOpacity> 
-            
+            </TouchableOpacity>           
         )
      })}
     </View>
