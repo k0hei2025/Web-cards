@@ -36,11 +36,11 @@ const LearningScreen:FC = ({navigation}:any) => {
 
   const nextQuestionHandler=()=>{
     // console.log(counter , cardList.length)
-    // if(cardList.length === counter){
+    if(cardList.length - 1 === counter){
       navigation.navigate('deckComplete')
-    // }else{
-    //   setCounter((counter)=>counter+1)
-    // }
+    }else{
+      setCounter((counter)=>counter+1)
+    }
 
   }
 
@@ -48,8 +48,7 @@ const LearningScreen:FC = ({navigation}:any) => {
     <View style={style.parentContainer}>
       <View style={style.cardContainer}>
     <Text style={{fontFamily:'IndieFlower_400Regular' , fontSize:18}} >{getDeck[0]?.title}</Text>
-    <View style={style.borderLine} />
-
+    <View style={style.border} />
 { cardList && <>     
       <Text style={style.cardHeading}>{cardList[counter]?.questionTagName}</Text>
  
@@ -61,16 +60,16 @@ const LearningScreen:FC = ({navigation}:any) => {
  }
        
        <View style={style.buttonWrapper}>
-        <TouchableOpacity style={style.buttonSt}>
-          <Text>Easy(2d)</Text>
+        <TouchableOpacity onPress={()=>nextQuestionHandler()} style={style.buttonSt}>
+          <Text style={btnStyle('#277BC0').btnText}>Easy(2d)</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Text>Hard(10min)</Text>
+        <TouchableOpacity onPress={()=>nextQuestionHandler()} style={style.buttonSt}>
+          <Text style={btnStyle('green').btnText}>Hard(10min)</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>nextQuestionHandler()}>
-          <Text>{AGAIN}</Text>
+        <TouchableOpacity onPress={()=>nextQuestionHandler()} style={style.buttonSt}>
+          <Text style={btnStyle('red').btnText}>{AGAIN}</Text>
         </TouchableOpacity>
         </View>
       </View>
@@ -80,31 +79,30 @@ const LearningScreen:FC = ({navigation}:any) => {
 
 const style = StyleSheet.create({
   cardContainer:{
-   borderWidth:2,
-   borderStyle:'solid',
    alignItems:'center',
-   width:'50%',
-   backgroundColor:'blue'
+   width:'20%',
+   backgroundColor:'transparent',
+   height:'100%'
   },
   parentContainer:{
     alignItems:'center',
-  backgroundColor:'red',
   width:'100%',
-
+  marginTop:10
   },
   border:{
    borderStyle:'solid',
    borderBottomColor:'black',
-   borderBottomWidth:2,
+   borderBottomWidth:1,
    width:'100%'
   },
   cardHeading:{
-   fontSize:26,
+   fontSize:30,
    fontFamily:'IndieFlower_400Regular',
-   fontWeight:'bold'
+   fontWeight:'bold',
   },
   textSt:{
-   fontFamily:'IndieFlower_400Regular'
+   fontFamily:'IndieFlower_400Regular',
+   marginTop:20
   },
   borderLine:{
     borderStyle:'solid',
@@ -113,13 +111,26 @@ const style = StyleSheet.create({
     borderColor:'black'
   },
   buttonWrapper:{
-  flexDirection:'row'
+  flexDirection:'row',
+  justifyContent:'space-between',
+  padding:10
   },
   buttonSt:{
     borderStyle:'solid',
     borderWidth:1,
     borderColor:'black',
-    padding:'8px 16px'
+    margin:4,
+    paddingLeft:4,
+    paddingRight:4
+    
+  },
+
+})
+
+const btnStyle =(btnTextColor:string)=> StyleSheet.create({
+  btnText:{
+    color:btnTextColor,
+    fontFamily:'IndieFlower_400Regular'
   }
 })
 

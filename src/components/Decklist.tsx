@@ -45,6 +45,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
 
   return (
     <View>
+       <Text style={style.textWrapper}>{deckList ? <>Decks</> : <>Create new deck</>}</Text>
      {deckList && deckList.map((item)=>{
         return (
           <TouchableOpacity key={item.id} onPress={()=>pushDeckHandler(item)}>
@@ -76,7 +77,12 @@ const style = StyleSheet.create({
     justifyContent:'space-between',
     textAlign:'left',
 
-  }
+  },
+  textWrapper:{
+    fontFamily:'IndieFlower_400Regular',
+    fontSize:46,
+    fontWeight:'bold'
+  },
 })
 
 export default Decklist

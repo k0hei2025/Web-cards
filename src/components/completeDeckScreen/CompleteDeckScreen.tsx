@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 
 const CompleteDeckScreen = ({navigation}) => {
 
@@ -12,8 +12,10 @@ const CompleteDeckScreen = ({navigation}) => {
 
   return (
     <View>
+      <View>
         <Text style={style.headingWrapper}>Congratulations that's all for today</Text>
-
+        <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/simle.png')} />
+        </View>
         <Text style={style.textSt} >Also complete your other decks</Text>
     </View>
   )

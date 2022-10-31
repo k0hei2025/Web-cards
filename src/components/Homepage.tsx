@@ -17,7 +17,6 @@ const Homepage:FC<RootStackParamList> =({navigation})=> {
   
         return (
              <View style={style.parentWrapper}>
-            <Text style={style.textWrapper}>Create new Deck</Text>
              <Decklist navigation={navigation} />
             <TouchableOpacity  onPress={()=>navigation.navigate('addDeck')}>
               <Text style={style.StButton}>Add Deck</Text>
