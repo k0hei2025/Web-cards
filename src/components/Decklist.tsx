@@ -37,7 +37,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
         deckList && console.log(deckList , 'data of decklist');
     },[]);
 
-    const pushDeckHandler=(selectedDeck:string | unknown)=>{
+    const pushDeckHandler=(selectedDeck:string )=>{
       navigation.navigate('countDown')
       setDeckToken(selectedDeck)
       console.log(selectedDeck , 'deckId')

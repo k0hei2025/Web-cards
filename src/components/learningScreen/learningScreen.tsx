@@ -3,11 +3,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useRecoilState  } from 'recoil'
 import { deckInfoState } from '../../store/deckInfoState'
 
-const learningScreen:FC = ({navigation}) => {
+const LearningScreen:FC = ({navigation}:any) => {
 
-  const getDeck = useRecoilState(deckInfoState)
-  const [cardList , setCardList] = useState([]);
-  const [currentCard , setCurrentCard] = useState({});
+  const getDeck:any = useRecoilState(deckInfoState)
+  const [cardList , setCardList] = useState<any>([]);
+  // const [currentCard , setCurrentCard] = useState({});
   const [counter , setCounter] = useState(0);
   const AGAIN = 'Again<1min'
 
@@ -30,34 +30,38 @@ const learningScreen:FC = ({navigation}) => {
   useEffect(()=>{
     // navigation.navigate('deckComplete')
     
-    console.log(cardList && cardList[counter]?.example , 'cardList')
+    console.log('cardList',cardList && cardList[counter]?.example , )
   },[cardList])
 
 
   const nextQuestionHandler=()=>{
-    console.log(counter , cardList.length)
-    if(cardList.length === counter){
-      navigation.push('deckComplete')
-    }else{
-      setCounter((counter)=>counter+1)
-    }
+    // console.log(counter , cardList.length)
+    // if(cardList.length === counter){
+      navigation.navigate('deckComplete')
+    // }else{
+    //   setCounter((counter)=>counter+1)
+    // }
 
   }
 
   return (
     <View style={style.parentContainer}>
       <View style={style.cardContainer}>
-    <Text >{getDeck[0]?.title}</Text>
+    <Text style={{fontFamily:'IndieFlower_400Regular' , fontSize:18}} >{getDeck[0]?.title}</Text>
     <View style={style.borderLine} />
 
 { cardList && <>     
-      <Text>{cardList[counter]?.questionTagName}</Text>
- <Text>{cardList[counter]?.explaination}</Text>
- <Text>{cardList[counter]?.example}</Text> </> 
+      <Text style={style.cardHeading}>{cardList[counter]?.questionTagName}</Text>
+ 
+ <Text style={style.textSt}>{cardList[counter]?.explaination}</Text>
+ <View style={style.border} />
+ <Text style={style.textSt}>{cardList[counter]?.example}</Text> 
+      <View style={style.border} />
+      </> 
  }
        
        <View style={style.buttonWrapper}>
-        <TouchableOpacity>
+        <TouchableOpacity style={style.buttonSt}>
           <Text>Easy(2d)</Text>
         </TouchableOpacity>
 
@@ -88,6 +92,20 @@ const style = StyleSheet.create({
   width:'100%',
 
   },
+  border:{
+   borderStyle:'solid',
+   borderBottomColor:'black',
+   borderBottomWidth:2,
+   width:'100%'
+  },
+  cardHeading:{
+   fontSize:26,
+   fontFamily:'IndieFlower_400Regular',
+   fontWeight:'bold'
+  },
+  textSt:{
+   fontFamily:'IndieFlower_400Regular'
+  },
   borderLine:{
     borderStyle:'solid',
     borderWidth:1,
@@ -96,7 +114,13 @@ const style = StyleSheet.create({
   },
   buttonWrapper:{
   flexDirection:'row'
+  },
+  buttonSt:{
+    borderStyle:'solid',
+    borderWidth:1,
+    borderColor:'black',
+    padding:'8px 16px'
   }
 })
 
-export default learningScreen
+export default LearningScreen   
