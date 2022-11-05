@@ -14,7 +14,7 @@ const CompleteDeckScreen = ({navigation}) => {
     <View>
       <View>
         <Text style={style.headingWrapper}>Congratulations that's all for today</Text>
-        <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/simle.png')} />
+        <Image  style={{height:'30px',width:'30px'}} source={require('../../../assets/smile.png')} />
         </View>
         <Text style={style.textSt} >Also complete your other decks</Text>
     </View>
