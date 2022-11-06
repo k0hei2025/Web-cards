@@ -7,6 +7,7 @@ import CountDownScreen from '../components/countDownScreen/CountDownScreen';
 import LearningScreen from '../components/learningScreen/LearningScreen';
 import CompleteDeckScreen from '../components/completeDeckScreen/CompleteDeckScreen';
 import RegistrationScreen from '../components/Registration/Registration';
+import PasswordSetScreen from '../components/passwordSetScreen/PasswordSetScreen';
 
 const RootContainer:FC = () => {
   type RootStackParamList = {
@@ -16,7 +17,8 @@ const RootContainer:FC = () => {
     countDown:undefined,
     learningScreen:undefined,
     deckComplete:undefined,
-    registration:undefined
+    registration:undefined,
+    passwordSetScreen:undefined
   }
   const Stack = createStackNavigator<RootStackParamList>()
   return (
@@ -36,6 +38,11 @@ const RootContainer:FC = () => {
       name='registration'
       component={RegistrationScreen}
       options={{headerShown:false}}
+      />
+      <Stack.Screen 
+       name='passwordSetScreen'
+       component={PasswordSetScreen} 
+       options={{headerShown:false}}
       />
       <Stack.Screen
       name='addCard'
@@ -57,6 +64,7 @@ const RootContainer:FC = () => {
         component={CompleteDeckScreen} 
         options={{headerShown:false}}     
          />
+      
       </Stack.Navigator>
   )
 }
