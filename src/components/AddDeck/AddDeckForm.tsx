@@ -2,21 +2,28 @@ import React, { FC } from 'react'
 import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native'
 import {useFonts , IndieFlower_400Regular} from '@expo-google-fonts/dev'
 import { useForm , SubmitErrorHandler, Controller} from 'react-hook-form'
+import {useRecoilState} from 'recoil'
+import { localIdState } from '../../store/localIdState'
 
 type formData = {
     deck_name:"";
      daily_card_limit:"";
 }
 
-const AddDeckForm:FC = () => {
+const AddDeckForm:FC = ({navigation}) => {
 
-
-    const {register , control, handleSubmit} = useForm();
+    const getLocalId = useRecoilState(localIdState);
+    const {register , control, handleSubmit} = useForm({
+        defaultValues:{
+            deck_name:'',
+            daily_card_limit:0
+        }
+    });
 
     const submitHandler=async(data: unknown )=>{
-    //  console.log(data , 'data of submti');
+     console.log(data , getLocalId[0] , 'data of submti');
 
-     const sendData = await fetch('https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck.json',{
+     const sendData = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList.json`,{
         method:'POST',
         body:JSON.stringify(data),
         headers:{
@@ -25,6 +32,7 @@ const AddDeckForm:FC = () => {
      })
      const resSendData = await sendData.json()
      console.log(resSendData , 'response');
+     navigation.navigate('Home')
     }
 
   return (

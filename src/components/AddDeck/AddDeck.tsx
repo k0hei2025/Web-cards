@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import AddDeckForm from './AddDeckForm'
 
-const AddComponent:FC = () => {
+const AddComponent:FC = ({navigation}) => {
   return (
     <View style={style.parentContainer}>
       <Text>Add Deck</Text>
-     <AddDeckForm/>
+     <AddDeckForm navigation={navigation}/>
     </View>
   )
 }

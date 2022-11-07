@@ -2,6 +2,8 @@ import { Route, RouteProp, useRoute } from '@react-navigation/native';
 import React, { FC, ReactElement, useEffect } from 'react'
 import { Controller, FieldValue, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useRecoilState } from 'recoil';
+import { localIdState } from '../../store/localIdState';
 
 
 type formData = {
@@ -12,7 +14,7 @@ type formData = {
 
 const AddCard:FC = () => {
 
-
+    const getLocalId = useRecoilState(localIdState);
     const route = useRoute<RouteProp<{AddCard:{deckId:string}}>>();
     const deckId = route?.params?.deckId;
 
@@ -34,7 +36,7 @@ const AddCard:FC = () => {
         console.log(data , 'data of add card form');
         // add card to specific deck 
 
-        const response  = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${deckId}/cardList.json`,{
+        const response  = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList/${deckId}/cardList.json`,{
             method:'POST',
             body:JSON.stringify(data),
             headers:{

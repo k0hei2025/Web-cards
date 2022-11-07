@@ -2,9 +2,12 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react'
 import { Controller , useForm } from 'react-hook-form'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {useSetRecoilState} from 'recoil'
+import { localIdState } from '../../store/localIdState';
 
-const PasswordSetScreen = () => {
+const PasswordSetScreen = ({navigation}) => {
 
+    const setLocalId = useSetRecoilState(localIdState);
 const {control , handleSubmit} = useForm({
     defaultValues:{
         password:'',
@@ -21,7 +24,8 @@ const submitHandler=async(data)=>{
         method:'post',
         body:JSON.stringify({
             email:registrationData.email,
-            password:'123456'
+            password:data.password,
+            returnSecureToken:true
         }),
         headers:{
             'Content-Type':'application/json'
@@ -30,14 +34,18 @@ const submitHandler=async(data)=>{
       const resData = await response.json();
       console.log(resData);
   
-const resposneData = await fetch('https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck?${resData.localId}.json',
+const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${resData.localId}.json`,
                         {
-                            method:'POST',
+                            method:'PUT',
                             body: JSON.stringify({
-                                userName:registrationData.user_name,
-                                
-                            })
+                                username:registrationData.user_name
+                            }),
                         } )
+                        console.log(resposneData, 'resPonseData')
+                        // saving local Id
+                        setLocalId(resData?.localId); 
+                        navigation.navigate('Home')
+
 }
 
   return (

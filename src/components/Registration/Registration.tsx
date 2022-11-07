@@ -66,6 +66,10 @@ const RegistrationScreen = ({navigation}) => {
       <TouchableOpacity onPress={handleSubmit(submitHandler)}>
         <Text style={style.buttonWrapper}>next</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate('login')}>
+        <Text>Go To Login</Text>
+      </TouchableOpacity>
+      
     </View>
   )
 }
@@ -96,7 +100,6 @@ const style = StyleSheet.create({
       width:300
     },
     nameWrapper:{
-      flexDirection:'column-reverse',
       justifyContent:'space-between'
     },
     buttonWrapper:{

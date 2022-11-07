@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useSetRecoilState } from 'recoil'
 import { deckInfoState } from '../store/deckInfoState'
+import { localIdState } from '../store/localIdState'
 
 type deckType={
   id:string,
@@ -13,12 +14,12 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
     const [deckList , setDeckList] = useState<deckType[]>([])
 
     const setDeckToken = useSetRecoilState(deckInfoState);
-  
+    const getLocalId = useSetRecoilState(localIdState);  
 
     // initial call of decklist
     useEffect(()=>{
         const getDeckList = async()=>{
-            const data = await fetch('https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck.json');
+            const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList.json`);
             const resData = await data.json();
             console.log(resData);
             const temp:deckType[]= [];
