@@ -13,7 +13,7 @@ const AddComponent:FC = ({navigation}) => {
 
 const style = StyleSheet.create({
   parentContainer:{
-    height:'30vh',
+    height:'30%',
     padding:'10%',
     fontFamily:'IndieFlower_400Regular',
     textAlign:'center',

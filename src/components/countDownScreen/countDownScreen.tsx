@@ -12,7 +12,7 @@ const CountDownScreen:FC = ({navigation}) => {
       setTimeout(()=>{
         setCountDown(countDown=countDown-1)
       },1000)
-      if(countDown === 0){
+      if(countDown === 0 || countDown <= 0){
          navigation.navigate('learningScreen')
       }
     },[countDown]);
@@ -21,7 +21,7 @@ const CountDownScreen:FC = ({navigation}) => {
   return (
 
     <View style={style.parentWrapper}>
-        {countDown > 0 ? ( <Text style={style.StText}> your {getDeck[0]?.title} deck  starts in </Text> ) : <>   </> }
+        {countDown > 0 ?  (<Text style={style.StText}> your {getDeck[0]?.title} deck  starts in </Text> ) : <></> }
         <View style={style.countDownWrapper}>
           <Text style={{fontFamily:'IndieFlower_400Regular' , fontSize:60 }}> {countDown}</Text>
         </View>
@@ -33,17 +33,18 @@ const style = StyleSheet.create({
   parentWrapper:{
    width:'100%',
    justifyContent:'center',
-   alignItems:'center'
+   alignItems:'center',
+   marginTop:80
   },
   countDownWrapper:{
-    borderRadius:50,
-    height:100,
-    width:100,
+    borderRadius:100,
+    alignItems:'center',
     borderStyle:'solid',
     borderColor:'black',
     justifyContent:'center',
     textAlign:'center',
-    borderWidth:2
+    borderWidth:2,
+    width:'25%'
   },
   StText:{
     fontFamily:'IndieFlower_400Regular',

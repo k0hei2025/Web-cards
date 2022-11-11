@@ -40,12 +40,12 @@ const AddDeckForm:FC = ({navigation}) => {
      <Controller control={control}
      name='deck_name'
       render={({ field: { onChange, onBlur, value } }) => (
-      <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='Deck Name'/>
+      <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='Deck Name'/>
       )} />
          <Controller control={control}
      name='daily_card_limit'
       render={({ field: { onChange, onBlur, value } }) => (
-      <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='daily card limit'/>
+      <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='daily card limit'/>
       )} />
         <TouchableOpacity>
             <Text onPress={handleSubmit(submitHandler)}>Submit</Text>

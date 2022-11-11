@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { deckInfoState } from '../store/deckInfoState'
 import { localIdState } from '../store/localIdState'
 
@@ -14,14 +14,15 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
     const [deckList , setDeckList] = useState<deckType[]>([])
 
     const setDeckToken = useSetRecoilState(deckInfoState);
-    const getLocalId = useSetRecoilState(localIdState);  
+    const getLocalId = useRecoilState(localIdState);  
 
     // initial call of decklist
     useEffect(()=>{
+      // console.log('data what');
         const getDeckList = async()=>{
             const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList.json`);
             const resData = await data.json();
-            console.log(resData);
+            console.log(resData , 'resData');
             const temp:deckType[]= [];
             for (let i in resData){
               temp.push({
@@ -54,9 +55,9 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
             <Text>{item.title}</Text>
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('addCard',{deckId:item.id})}>
-            <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/addIcon.png')} />
+            <Image  style={{height:30,width:30}} source={require('../../assets/addIcon.png')} />
             </TouchableOpacity> 
-            <Image  style={{height:'30px',width:'30px'}} source={require('../../assets/settings.png')} />
+            <Image  style={{height:30,width:30}} source={require('../../assets/settings.png')} />
             </View>
             </View>
             <View  style={style.bottomLine} />
@@ -70,7 +71,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
 const style = StyleSheet.create({
   bottomLine:{
     borderBottomWidth:3,
-    width:'300px',
+    width:340,
     padding:5,
   },
   itemWrapper:{

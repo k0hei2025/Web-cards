@@ -10,7 +10,6 @@ const RegistrationScreen = ({navigation}) => {
     IndieFlower_400Regular
   })
 
-
     const {control , handleSubmit} = useForm({
         defaultValues:{
             first_name:'',
@@ -35,32 +34,33 @@ const RegistrationScreen = ({navigation}) => {
         <Controller 
                   control={control}
                   name='first_name'
-                  render={({field:{onChange , value}})=>(
-                      <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='first name'/>
+                  render={({field:{onChange , onBlur , value}})=>(
+                      <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='first name'/>
                   )}  
                   />
         <Controller 
                   control={control}
                   name='last_name'
-                  render={({field:{onChange , value}})=>(
-                      <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='last name'/>
+                  render={({field:{onChange , onBlur , value}})=>(
+                      <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='last name'/>
                   )}  
                   />
                     
       <Controller 
                 control={control}
                 name='email'
-                render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
+                render={({field:{onChange , onBlur , value}})=>(
+                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
                 )}  
                 />
      <Controller 
                 control={control}
                 name='user_name'
-                render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='user name'/>
+                render={({field:{onChange , onBlur , value}})=>(
+                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='user name'/>
                 )}  
                 />
+           
       </View>  
                                                                  
       <TouchableOpacity onPress={handleSubmit(submitHandler)}>
@@ -77,18 +77,18 @@ const RegistrationScreen = ({navigation}) => {
 const style = StyleSheet.create({
     inputWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        flex:1,
+        width:'auto',
         borderStyle:'solid',
         borderColor:'#000000',
         borderWidth:1,
-        margin:2,
-        width:'100%'
     },
 
     parentWrapper:{
       flex:1,
       fontFamily:'IndieFlower_400Regular',
-      alignItems:'center'
+     marginTop:'10%',
+     width:'100%',
+
     },
     headingWrapper:{
       fontFamily:'IndieFlower_400Regular',

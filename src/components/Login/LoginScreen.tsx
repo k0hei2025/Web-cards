@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { localIdState } from '../../store/localIdState';
 
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
 
     const {control , handleSubmit} = useForm({
         defaultValues:{
@@ -35,23 +35,24 @@ const submitHandler= async(data)=>{
     })
     const resData = await response.json();
     console.log(resData , 'resData');
-    setLocalId(data.localId)
+    setLocalId(resData.localId)
+    navigation.navigate('Home')
   }
 
   return (
-   <View>
+   <View style={style.parentWrapper}>
           <Controller 
                 control={control}
-                name='email'
+                name='email' 
                 render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
+                    <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
                 )}  
                 />
      <Controller 
                 control={control}
                 name='password'
                 render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='password'/>
+                    <TextInput onChangeText={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='password'/>
                 )}  
                 />
                 <TouchableOpacity onPress={handleSubmit(submitHandler)}>
@@ -69,8 +70,15 @@ const style = StyleSheet.create({
         borderColor:'#000000',
         borderWidth:1,
         margin:2,
-        width:'100%'
+        width:'100%',
+                
+   
     },
+    parentWrapper:{
+        width:'100%',
+        marginTop:80,
+        height:'10%',
+    }
 
 })
 
