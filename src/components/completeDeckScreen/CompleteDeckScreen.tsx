@@ -1,23 +1,20 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect} from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 
 const CompleteDeckScreen = ({navigation}) => {
 
-  const [timeLeft , setTimeLeft] = useState(0)
-  // useEffect(()=>{
-  //  setTimeout(()=>{
-    
-  //   navigation.navigate('Home');
-
-  //  },4000)
-  // },[timeLeft])
+  useEffect(()=>{
+   setTimeout(()=>{
+    navigation.navigate('Home');
+   },2000)
+  },[])
 
 
   return (
     <View>
       <View>
         <Text style={style.headingWrapper}>Congratulations that's all for today</Text>
-        <Image  style={{height:30,width:30}} source={require('../../../assets/smile.png')} />
+        <Image  style={{height:'30px',width:'30px'}} source={require('../../../assets/smile.png')} />
         </View>
         <Text style={style.textSt} >Also complete your other decks</Text>
     </View>

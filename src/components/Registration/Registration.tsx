@@ -1,14 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import {useForm , Controller} from 'react-hook-form'
-import {useFonts , IndieFlower_400Regular} from '@expo-google-fonts/dev'
 
 
 const RegistrationScreen = ({navigation}) => {
 
-  let [fontsLoaded , error ] = useFonts({
-    IndieFlower_400Regular
-  })
 
     const {control , handleSubmit} = useForm({
         defaultValues:{
@@ -30,7 +26,8 @@ const RegistrationScreen = ({navigation}) => {
     <View style={style.parentWrapper}>
       <Text style={style.headingWrapper}>Create Account</Text>
       <Text style={style.descriptionWrapper}>Activate your account and start the new and intresting way of remebering the things</Text>
-      <View style={style.nameWrapper}>
+      <View style={style.inputContainer}>
+        <View style={style.nameWrapper}>
         <Controller 
                   control={control}
                   name='first_name'
@@ -45,28 +42,31 @@ const RegistrationScreen = ({navigation}) => {
                       <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='last name'/>
                   )}  
                   />
-                    
+        </View>
       <Controller 
                 control={control}
                 name='email'
                 render={({field:{onChange , onBlur , value}})=>(
-                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
+                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapperEmail} textAlign='center' placeholder='email'/>
                 )}  
                 />
      <Controller 
                 control={control}
                 name='user_name'
                 render={({field:{onChange , onBlur , value}})=>(
-                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='user name'/>
+                    <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapperEmail}  textAlign='center' placeholder='user name'/>
                 )}  
                 />
            
       </View>  
                                                                  
-      <TouchableOpacity onPress={handleSubmit(submitHandler)}>
-        <Text style={style.buttonWrapper}>next</Text>
+      <TouchableOpacity style={style.buttonWrapper} onPress={handleSubmit(submitHandler)}>
+     
+        <Text>next</Text>
+        <Image style={{width:20,height:20}} source={require('../../../assets/arrow.png')}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=>navigation.navigate('login')}>
+      
         <Text>Go To Login</Text>
       </TouchableOpacity>
       
@@ -75,42 +75,63 @@ const RegistrationScreen = ({navigation}) => {
 }
 
 const style = StyleSheet.create({
+  inputContainer:{
+    marginTop:20
+  },
     inputWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        width:'auto',
+        width:'40%',
         borderStyle:'solid',
         borderColor:'#000000',
-        borderWidth:1,
+        borderWidth:1.5,
+        margin:5,
+        borderRadius:8,
+        padding:6        
     },
-
+    inputWrapperEmail:{
+      fontFamily:'IndieFlower_400Regular',
+      alignSelf:'center',
+      width:'90%',
+      borderStyle:'solid',
+      borderColor:'#000000',
+      borderWidth:1.5,
+      margin:5,
+      borderRadius:8,
+      padding:6    
+    },
+    nameWrapper:{
+      flexDirection:'row',
+      justifyContent:'space-evenly',
+    },
     parentWrapper:{
       flex:1,
-      fontFamily:'IndieFlower_400Regular',
-     marginTop:'10%',
-     width:'100%',
+     marginTop:'30%',
+     width:'90%',
+     margin:20
 
     },
     headingWrapper:{
       fontFamily:'IndieFlower_400Regular',
-      fontSize:28
+      fontSize:38
     },
     descriptionWrapper:{
       fontFamily:'IndieFlower_400Regular',
       fontSize:18,
-      width:300
+      width:'95%',
+      marginTop:10
     },
-    nameWrapper:{
-      justifyContent:'space-between'
-    },
+ 
     buttonWrapper:{
       borderStyle:'solid',
       borderWidth:1,
-      width:70,
-      padding:2,
+      padding:5,
       borderColor:'#00000',
-      position:'absolute',
       marginTop:10,
-      left:60
+     marginRight:20,
+      width:'25%',
+      flexDirection:'row',
+      justifyContent:'space-evenly',
+      alignSelf:'flex-end'
     }
 })
 

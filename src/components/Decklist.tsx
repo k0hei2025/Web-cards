@@ -45,6 +45,15 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
       console.log(selectedDeck , 'deckId')
     }
 
+    const deleteHandler=async(id)=>{
+     let temp = deckList.filter((item)=>item.id !== id)
+     console.log(temp , 'remain data');
+     const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList/${id}.json`,{
+      method:"DELETE"
+     });
+     setDeckList(temp) 
+    }
+
   return (
     <View>
        <Text style={style.textWrapper}>{deckList ? <>Decks</> : <>Create new deck</>}</Text>
@@ -58,6 +67,9 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
             <Image  style={{height:30,width:30}} source={require('../../assets/addIcon.png')} />
             </TouchableOpacity> 
             <Image  style={{height:30,width:30}} source={require('../../assets/settings.png')} />
+            <TouchableOpacity key={item.id} onPress={()=>deleteHandler(item.id)}>
+            <Image  style={{height:30,width:30}} source={require('../../assets/trash-can.png')} />
+            </TouchableOpacity> 
             </View>
             </View>
             <View  style={style.bottomLine} />
