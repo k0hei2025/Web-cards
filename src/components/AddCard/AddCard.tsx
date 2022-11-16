@@ -12,7 +12,7 @@ type formData = {
     example:string
 }
 
-const AddCard:FC = () => {
+const AddCard:FC = ({navigation}) => {
 
     const getLocalId = useRecoilState(localIdState);
     const route = useRoute<RouteProp<{AddCard:{deckId:string}}>>();
@@ -46,42 +46,44 @@ const AddCard:FC = () => {
            
         const resData = await response.json()
         console.log(resData , 'data sended succesfully')
-
-       }
+        navigation.navigate('Home')
+    }
 
        if(deckId === ''){
     
        }
         return (
             <View style={style.parentContainer}>
+               
                 {deckId === '' ? 
                   <Text>Deck id is Empty or Invalid </Text> : 
-                <>
+                <View style={style.inputContainer}>
+                     <Text style={style.heading}>Add Card</Text>
                   <Controller 
                 control={control}
                 name='questionTagName'
                 render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='card title'/>
+                    <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='card title'/>
                 )}  
                 />
                    <Controller 
                 control={control}
                 name='explaination'
                 render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} textAlign='center' style={style.inputWrapper}  placeholder='Explaination'/>
+                    <TextInput onChangeText={onChange} value={value} textAlign='center' style={style.inputWrapper}  placeholder='Explaination'/>
                 )}  
                 />
                    <Controller 
                 control={control}
                 name='example'
                 render={({field:{onChange , value}})=>(
-                    <TextInput onChange={onChange} value={value} textAlign='center' style={style.inputWrapper}  placeholder='Example'/>
+                    <TextInput onChangeText={onChange} value={value} textAlign='center' style={style.inputWrapper}  placeholder='Example'/>
                 )}  
                 />
                 <TouchableOpacity onPress={handleSubmit(submitHandler)}>
                 <Text>Submit form</Text>
                 </TouchableOpacity>
-                    </>
+                    </View>
                 }        
             </View>
           )
@@ -91,11 +93,27 @@ const AddCard:FC = () => {
         const style = StyleSheet.create({
             parentContainer:{
               width:'100%',
-              alignItems:'center'
+              height:'100%',
+              alignItems:'center',
+            
+              
             },
             inputWrapper:{
                 fontFamily:'IndieFlower_400Regular',
-                flex:1
+                flex:1,
+                padding:12,
+                width:'100%',
+            },
+            inputContainer:{
+                alignItems:'center',
+                marginTop:'20%',
+                width:'100%',
+                height:'20%'
+            },
+            heading:{
+                fontFamily:'IndieFlower_400Regular',
+                fontWeight:'bold',
+                fontSize:26
             }
             
         })
