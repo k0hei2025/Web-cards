@@ -66,7 +66,9 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
             <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('addCard',{deckId:item.id})}>
             <Image  style={{height:30,width:30}} source={require('../../assets/addIcon.png')} />
             </TouchableOpacity> 
+            <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('settings',{deckInfo:item})}>
             <Image  style={{height:30,width:30}} source={require('../../assets/settings.png')} />
+            </TouchableOpacity>
             <TouchableOpacity key={item.id} onPress={()=>deleteHandler(item.id)}>
             <Image  style={{height:30,width:30}} source={require('../../assets/trash-can.png')} />
             </TouchableOpacity> 
