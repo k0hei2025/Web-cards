@@ -7,7 +7,7 @@ import { localIdState } from '../../store/localIdState';
 
 const LoginScreen = ({navigation}) => {
 
-    const {control , handleSubmit} = useForm({
+    const {control , handleSubmit , formState:{errors}} = useForm({
         defaultValues:{
             email:'',
             password:''
@@ -36,8 +36,13 @@ const submitHandler= async(data)=>{
     const resData = await response.json();
     console.log(resData , 'resData');
     setLocalId(resData.localId)
-    navigation.navigate('Home')
+    if(resData.idToken){
+        navigation.navigate('Home')
+    }
+
   }
+  const errorMessage = (<Text style={{color:'red'}}>Credientials is incorrect</Text>)
+
 
   return (
    <View style={style.parentWrapper}>
@@ -47,26 +52,28 @@ const submitHandler= async(data)=>{
     <Text style={style.descriptionTxt}>In order to see your decks</Text>
     
     {/* <View style={style.fieldWrapper}> */}
-   
+    {errors.email && errorMessage}
           <Controller 
                 control={control}
                 name='email' 
-                
+                rules={{pattern:/^[\w.+\-]+@gmail\.com$/,required:true}}
                 render={({field:{onChange , value}})=>(
                     <View style={style.fieldWrapper}>
+                    
                     <Image style={{width:30 , height:30}} source={require('../../../assets/email.png')}  />
                     <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='email'/>
                     </View>
                 )}  
                 />
-                
+                 {errors.password && errorMessage}
      <Controller 
                 control={control}
                 name='password'
+                rules={{required:true}}
                 render={({field:{onChange , value}})=>(
                     <View style={style.fieldWrapper}    >
                       <Image style={{width:30 , height:30}}  source={require('../../../assets/lock.png')}  />
-                    <TextInput  onChangeText={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='password'/>
+                    <TextInput secureTextEntry={true} onChangeText={onChange} value={value} style={style.inputWrapper}  textAlign='center' placeholder='password'/>
                     </View>
                 )}  
                 />

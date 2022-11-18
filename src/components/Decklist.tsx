@@ -18,7 +18,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
 
     // initial call of decklist
     useEffect(()=>{
-      // console.log('data what');
+      console.log(getLocalId[0], 'getLocalId');
         const getDeckList = async()=>{
             const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList.json`);
             const resData = await data.json();

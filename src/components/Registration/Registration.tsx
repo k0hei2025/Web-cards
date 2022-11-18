@@ -6,7 +6,7 @@ import {useForm , Controller} from 'react-hook-form'
 const RegistrationScreen = ({navigation}) => {
 
 
-    const {control , handleSubmit} = useForm({
+    const {control , handleSubmit , formState:{errors}} = useForm({
         defaultValues:{
             first_name:'',
             last_name:'',
@@ -22,36 +22,46 @@ const RegistrationScreen = ({navigation}) => {
     //   console.log(resData , 'resData');
     }
 
+    const errorMessage = (<Text style={{color:'red'}}>Credientials is incorrect</Text>)
+
     return (
     <View style={style.parentWrapper}>
       <Text style={style.headingWrapper}>Create Account</Text>
       <Text style={style.descriptionWrapper}>Activate your account and start the new and intresting way of remebering the things</Text>
       <View style={style.inputContainer}>
         <View style={style.nameWrapper}>
+          {errors.first_name && errorMessage}
         <Controller 
                   control={control}
+                  rules={{required:true}}
                   name='first_name'
                   render={({field:{onChange , onBlur , value}})=>(
                       <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='first name'/>
                   )}  
                   />
+                  {errors.last_name && errorMessage}
         <Controller 
                   control={control}
+                  rules={{required:true}}
                   name='last_name'
                   render={({field:{onChange , onBlur , value}})=>(
                       <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='last name'/>
                   )}  
                   />
         </View>
+        {errors.email && errorMessage}
       <Controller 
                 control={control}
                 name='email'
+                rules={{pattern:/^[\w.+\-]+@gmail\.com$/,required:true}}
                 render={({field:{onChange , onBlur , value}})=>(
                     <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapperEmail} textAlign='center' placeholder='email'/>
                 )}  
                 />
+                {errors.user_name && errorMessage}
      <Controller 
                 control={control}
+                rules={{required:true}}
                 name='user_name'
                 render={({field:{onChange , onBlur , value}})=>(
                     <TextInput onBlur={onBlur} onChangeText={onChange} value={value} style={style.inputWrapperEmail}  textAlign='center' placeholder='user name'/>

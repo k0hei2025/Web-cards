@@ -8,7 +8,7 @@ import { localIdState } from '../../store/localIdState';
 const PasswordSetScreen = ({navigation}) => {
 
     const setLocalId = useSetRecoilState(localIdState);
-const {control , handleSubmit} = useForm({
+const {control , handleSubmit , formState:{errors}} = useForm({
     defaultValues:{
         password:'',
         confirmPassword:''
@@ -17,10 +17,12 @@ const {control , handleSubmit} = useForm({
 const route = useRoute();
 
 const registrationData = route?.params?.data
+const errorMsg = (<Text style={{color:'red'}}>Password is not strong</Text>)
 
 const submitHandler=async(data)=>{
   console.log(data , registrationData ,  'password data');
-  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDQt5LiA7evwIQBI3BsU2AFyb46YX8OEbc`,{
+  if(data.password === data.confirmPassword){
+    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDQt5LiA7evwIQBI3BsU2AFyb46YX8OEbc`,{
         method:'post',
         body:JSON.stringify({
             email:registrationData.email,
@@ -45,8 +47,9 @@ const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebasei
                         // saving local Id
                         setLocalId(resData?.localId); 
                         navigation.navigate('Home')
-
 }
+  }
+  
 
   return (
      <View style={style.parentWrapper}>
@@ -54,17 +57,20 @@ const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebasei
 
         <Text style={style.descriptionWrapper}>Last Step to go </Text>
         <View>
+            {errors.password && errorMsg}
         <Controller 
                   control={control}
                   name='password'
+                  rules={{minLength:8}}
                   render={({field:{onChange , value}})=>(
                       <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='password'/>
                   )}  
                   />
-                    
+            {errors.confirmPassword && errorMsg}
         <Controller 
                     control={control}
                     name='confirmPassword'
+                    rules={{minLength:8}}
                     render={({field:{onChange , value}})=>(
                         <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='confirm password'/>
                     )}  
