@@ -11,7 +11,7 @@ const LearningScreen:FC = ({navigation}:any) => {
   // const [currentCard , setCurrentCard] = useState({});
   const [counter , setCounter] = useState(0);
   const getUserId = useRecoilState(localIdState);
-  const AGAIN = 'Again<1min'
+  const AGAIN = 'Again (1 Hr)'
 
   useEffect(()=>{
   console.log('selected deck value at learningScreen' , getDeck[0]?.id);
@@ -67,7 +67,7 @@ const LearningScreen:FC = ({navigation}:any) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>nextQuestionHandler()} style={style.buttonSt}>
-          <Text style={btnStyle('green').btnText}>Hard(10min)</Text>
+          <Text style={btnStyle('green').btnText}>Hard(4Hr)</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={()=>nextQuestionHandler()} style={style.buttonSt}>
