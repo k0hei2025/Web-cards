@@ -6,38 +6,45 @@ import { localIdState } from '../store/localIdState'
 
 type deckType={
   id:string,
-  title:string
+  title:string,
+  daily_card_limit:number,
+  // cardLength:number
 }
 
 const Decklist:FC<{navigation:any}> = ({navigation}) => {
 
     const [deckList , setDeckList] = useState<deckType[]>([])
-
     const setDeckToken = useSetRecoilState(deckInfoState);
-    const getLocalId = useRecoilState(localIdState);  
-
+    const getLocalId = useRecoilState(localIdState); 
     // initial call of decklist
     useEffect(()=>{
+
+
+
       console.log(getLocalId[0], 'getLocalId');
         const getDeckList = async()=>{
             const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList.json`);
             const resData = await data.json();
-            console.log(resData , 'resData');
+            // console.log(resData , 'resData');
             const temp:deckType[]= [];
             for (let i in resData){
               temp.push({
                 id: i,
-               title: resData[i].deck_name
+               title: resData[i].deck_name,
+               // trunk-ignore(git-diff-check/error)
+               daily_card_limit:resData[i].daily_card_limit,     
               })
             }
             setDeckList(temp)
-            console.log('temp' , temp)
+            // console.log('temp' , temp)
             // return resData
         }
        const res =  getDeckList()
 
         deckList && console.log(deckList , 'data of decklist');
     },[]);
+
+
 
     const pushDeckHandler=(selectedDeck:string )=>{
       navigation.navigate('countDown')
@@ -61,7 +68,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
         return (
           <TouchableOpacity key={item.id} onPress={()=>pushDeckHandler(item)}>
             <View style={style.itemWrapper}>
-            <Text>{item.title}</Text>
+            <Text style={{fontWeight:'bold', fontFamily:'IndieFlower_400Regular',fontSize:20}}>{item.title} : ({item.daily_card_limit})</Text>
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity key={item.id} onPress={()=>navigation.navigate('addCard',{deckId:item.id})}>
             <Image  style={{height:30,width:30}} source={require('../../assets/addIcon.png')} />

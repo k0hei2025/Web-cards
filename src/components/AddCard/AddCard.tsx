@@ -80,8 +80,8 @@ const AddCard:FC = ({navigation}) => {
                     <TextInput onChangeText={onChange} value={value} textAlign='center' style={style.inputWrapper}  placeholder='Example'/>
                 )}  
                 />
-                <TouchableOpacity onPress={handleSubmit(submitHandler)}>
-                <Text>Submit form</Text>
+                <TouchableOpacity  onPress={handleSubmit(submitHandler)}>
+                <Text style={style.buttonWrapper}>Submit form</Text>
                 </TouchableOpacity>
                     </View>
                 }        
@@ -94,28 +94,39 @@ const AddCard:FC = ({navigation}) => {
             parentContainer:{
               width:'100%',
               height:'100%',
-              alignItems:'center',
-            
-              
+              // trunk-ignore(git-diff-check/error)
+              alignItems:'center',     
             },
             inputWrapper:{
                 fontFamily:'IndieFlower_400Regular',
                 flex:1,
                 padding:12,
-                width:'100%',
+                width:'60%',
+                height:'100%',
+                margin:10,
+                borderStyle:'solid',
+                borderWidth:1,
+                borderColor:'black',
             },
             inputContainer:{
                 alignItems:'center',
                 marginTop:'20%',
                 width:'100%',
-                height:'20%'
+                height:'36%'
             },
             heading:{
                 fontFamily:'IndieFlower_400Regular',
                 fontWeight:'bold',
-                fontSize:26
+                fontSize:48
+            },
+            buttonWrapper:{
+                fontFamily:'IndieFlower_400Regular',
+                padding:7,
+                width:'40%',
+                borderStyle:'solid',
+                borderWidth:1,
+                borderColor:'black',
             }
-            
         })
         
        

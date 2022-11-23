@@ -5,7 +5,7 @@ import AddDeckForm from './AddDeckForm'
 const AddComponent:FC = ({navigation}) => {
   return (
     <View style={style.parentContainer}>
-      <Text>Add Deck</Text>
+      <Text style={{fontSize:48 , fontFamily:'IndieFlower_400Regular' , fontWeight:'bold'}}>Add Deck</Text>
      <AddDeckForm navigation={navigation}/>
     </View>
   )
@@ -17,7 +17,8 @@ const style = StyleSheet.create({
     padding:'10%',
     fontFamily:'IndieFlower_400Regular',
     textAlign:'center',
-    alignItems:'center'
+    alignItems:'center',
+    marginTop:32
   },
 
 })

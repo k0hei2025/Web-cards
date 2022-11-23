@@ -17,7 +17,7 @@ const {control , handleSubmit , formState:{errors}} = useForm({
 const route = useRoute();
 
 const registrationData = route?.params?.data
-const errorMsg = (<Text style={{color:'red'}}>Password is not strong</Text>)
+const errorMsg = (<Text style={{color:'red'}}>Password is not strong at least 8 characters is needed</Text>)
 
 const submitHandler=async(data)=>{
   console.log(data , registrationData ,  'password data');
@@ -53,17 +53,20 @@ const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebasei
 
   return (
      <View style={style.parentWrapper}>
+       
+        <View style={style.fieldWrapper}>
+
         <Text style={style.headingWrapper}>Create Password</Text>
 
         <Text style={style.descriptionWrapper}>Last Step to go </Text>
-        <View>
+
             {errors.password && errorMsg}
         <Controller 
                   control={control}
                   name='password'
                   rules={{minLength:8}}
                   render={({field:{onChange , value}})=>(
-                      <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='password'/>
+                      <TextInput secureTextEntry={true} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='password'/>
                   )}  
                   />
             {errors.confirmPassword && errorMsg}
@@ -72,12 +75,12 @@ const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebasei
                     name='confirmPassword'
                     rules={{minLength:8}}
                     render={({field:{onChange , value}})=>(
-                        <TextInput onChange={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='confirm password'/>
+                        <TextInput secureTextEntry={true} onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='confirm password'/>
                     )}  
                     />
         </View>
-        <TouchableOpacity onPress={handleSubmit(submitHandler)}> 
-            <Text>GO</Text>
+        <TouchableOpacity style={style.buttonWrapper} onPress={handleSubmit(submitHandler)}> 
+            <Text style={{color:'white'}}>Submit</Text>
         </TouchableOpacity>
      </View>
   )
@@ -86,28 +89,40 @@ const resposneData = await fetch(`https://web-cards-52c0a-default-rtdb.firebasei
 const style = StyleSheet.create({
     inputWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        flex:1,
         borderStyle:'solid',
         borderColor:'#000000',
         borderWidth:1,
         margin:2,
-        width:'100%'
+        width:'100%',
+        padding:8,
+        marginTop:10
     },
     parentWrapper:{
         flex:1,
         fontFamily:'IndieFlower_400Regular',
         alignItems:'center',
-        textAlign:'center'
+        textAlign:'center',
+      },
+      fieldWrapper:{
+       height:'40%',
+       width:'80%',
+       marginTop:'20%'
       },
     headingWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        fontSize:28
+        fontSize:32
       },
       descriptionWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        fontSize:18,
+        fontSize:28,
         width:300
       },
+      buttonWrapper:{
+        padding:8,
+        backgroundColor:'black',
+        width:'50%',
+        alignItems:'center'
+      }
 })
 
 export default PasswordSetScreen

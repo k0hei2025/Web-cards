@@ -36,7 +36,7 @@ const AddDeckForm:FC = ({navigation}) => {
     }
 
   return (
-       <>
+       <View style={style.parentWrapper}>
      <Controller control={control}
      name='deck_name'
       render={({ field: { onChange, onBlur, value } }) => (
@@ -48,16 +48,44 @@ const AddDeckForm:FC = ({navigation}) => {
       <TextInput onChangeText={onChange} value={value} style={style.inputWrapper} textAlign='center' placeholder='daily card limit'/>
       )} />
         <TouchableOpacity>
-            <Text onPress={handleSubmit(submitHandler)}>Submit</Text>
+            <Text style={style.buttonWrapper} onPress={handleSubmit(submitHandler)}>Submit</Text>
         </TouchableOpacity>
-        </>
+        </View>
   )
 }
 
 const style = StyleSheet.create({
     inputWrapper:{
         fontFamily:'IndieFlower_400Regular',
-        flex:1
+        flex:1,
+        padding:12,
+        borderStyle:'solid',
+        borderWidth:1,
+        borderColor:'black',
+        width:'100%',
+        margin:5,
+        height:'100%'
+    },
+    inputContainer:{
+        alignItems:'center',
+        marginTop:'20%',
+        width:'100%',
+        height:'20%'
+    },
+    parentWrapper:{
+     width:'100%',
+     height:'80%'
+    },
+    buttonWrapper:{
+        padding:5,
+        borderStyle:'solid',
+        borderWidth:1,
+        borderColor:'black',
+        width:'20%',
+        marginTop:5,
+        alignSelf:'flex-end',
+        fontFamily:'IndieFlower_400Regular',
+        fontWeight:'bold'
     }
     
 })

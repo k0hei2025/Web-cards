@@ -9,19 +9,21 @@ import { localIdState } from '../../store/localIdState';
 
 const Settings:React.FC = ({navigation}) => {
 
+  const [deckInfo , setDeckInfo] = useState();
+const [userName , setUsername] = useState('');
+
+
     const {control , handleSubmit} = useForm({
       defaultValues:{
-        daily_card_limit:'',
-        deck_name:'',
-        username:''
+        daily_card_limit:deckInfo?.daily_card_limit,
+        deck_name: deckInfo?.deck_name,
+        username:userName
       }
     });
 
 const route = useRoute<RouteProp<{Settings:{deckInfo:any}}>>();
 const deckData = route?.params?.deckInfo;
 
-const [deckInfo , setDeckInfo] = useState();
-const [userName , setUsername] = useState('');
 
 const getLocalId = useRecoilState(localIdState);
 
@@ -74,7 +76,7 @@ console.log(data , 'data');
   const userNameResponse = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}.json`,{
     method:'PATCH',
     body:JSON.stringify({
-      userName:data.username
+      username:data.username
     }),
     headers:{
       'Content-type':'application/json'
