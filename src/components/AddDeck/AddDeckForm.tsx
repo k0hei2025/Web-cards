@@ -16,7 +16,7 @@ const AddDeckForm:FC = ({navigation}) => {
     const {register , control, handleSubmit} = useForm({
         defaultValues:{
             deck_name:'',
-            daily_card_limit:0
+            daily_card_limit:''
         }
     });
 
