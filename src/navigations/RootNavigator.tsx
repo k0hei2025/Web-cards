@@ -35,7 +35,7 @@ const RootContainer:FC = () => {
      <Stack.Screen
       name='addDeck'
       component={AddDeck}
-      options={{headerShown:false}}
+      options={{headerShown:true,headerTitle:''}}
     
       />
       <Stack.Screen
@@ -46,22 +46,24 @@ const RootContainer:FC = () => {
       <Stack.Screen 
        name='passwordSetScreen'
        component={PasswordSetScreen} 
-       options={{headerShown:false}}
+       options={{headerShown:true , headerTitle:''}}
       />
       <Stack.Screen
       name='addCard'
       component={AddCard}
-      options={{headerShown:false}}
+      options={{headerShown:true , headerTitle:''}}
       />
       <Stack.Screen
       name='countDown'
       component={CountDownScreen}
-      options={{headerShown:false}}
+      options={{headerShown:true}}
       />
       <Stack.Screen
       name='learningScreen'
       component={LearningScreen}
-      options={{headerShown:false}}
+      options={{headerShown:true ,
+        // trunk-ignore(git-diff-check/error)
+        headerBackTitle:'back'}}  
       />
       <Stack.Screen
        name='deckComplete'
@@ -76,7 +78,8 @@ const RootContainer:FC = () => {
          <Stack.Screen
           name='settings'
           component={Settings}
-          options={{headerShown:false }}
+          options={{headerShown:true }}
+
          />
       </Stack.Navigator>
   )

@@ -52,7 +52,7 @@ const Decklist:FC<{navigation:any}> = ({navigation}) => {
       console.log(selectedDeck , 'deckId')
     }
 
-    const deleteHandler=async(id)=>{
+    const deleteHandler=async(id:string)=>{
      let temp = deckList.filter((item)=>item.id !== id)
      console.log(temp , 'remain data');
      const data = await fetch(`https://web-cards-52c0a-default-rtdb.firebaseio.com/addDeck/${getLocalId[0]}/deckList/${id}.json`,{
